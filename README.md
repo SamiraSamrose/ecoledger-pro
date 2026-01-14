@@ -9,10 +9,10 @@ EcoLedger Pro eliminates greenwashing in sustainable finance by providing verifi
 ## Links
 
 -**Source Code**: https://github.com/SamiraSamrose/ecoledger-pro
--**Video Demo**: https://youtu.be/aLC_tP6awR0
--**Notebook**: https://github.com/SamiraSamrose/ecoledger-pro/blob/main/EcoLedger_Pro_sustainable_debt_platform.ipynb
 
-https://colab.research.google.com/github/SamiraSamrose/ecoledger-pro/blob/main/EcoLedger_Pro_sustainable_debt_platform.ipynb
+-**Video Demo**: https://youtu.be/aLC_tP6awR0
+
+-**Notebook**: https://github.com/SamiraSamrose/ecoledger-pro/blob/main/EcoLedger_Pro_sustainable_debt_platform.ipynb
 
 ## Key Features and Usage List
 
