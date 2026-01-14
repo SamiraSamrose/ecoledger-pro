@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLedger Pro - Sustainable Debt Platform</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/terminal.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 class="logo">EcoLedger Pro</h1>
+                <span class="subtitle">Sustainable Debt Secondary Market Platform</span>
+            </div>
+            <div class="header-right">
+                <div class="status-indicator">
+                    <span class="status-dot status-active"></span>
+                    <span>SYSTEM OPERATIONAL</span>
+                </div>
+                <div class="header-time" id="currentTime"></div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-tab" data-tab="origination">Loan Origination</button>
+            <button class="nav-tab" data-tab="documents">Document Vault</button>
+            <button class="nav-tab" data-tab="trading">Trading Floor</button>
+            <button class="nav-tab" data-tab="monitoring">Covenant Monitor</button>
+            <button class="nav-tab" data-tab="rates">Rate Engine</button>
+            <button class="nav-tab" data-tab="ledger">Audit Ledger</button>
+            <button class="nav-tab" data-tab="analytics">Analytics</button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <div class="tab-content active" id="dashboard">
+            <h2 class="section-title">System Overview</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Total Loans</div>
+                    <div class="metric-value" id="totalLoans">0</div>
+                    <div class="metric-change positive" id="loansChange">+0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Approval Rate</div>
+                    <div class="metric-value" id="approvalRate">0%</div>
+                    <div class="metric-change positive" id="approvalChange">+0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Total Value</div>
+                    <div class="metric-value" id="totalValue">$0</div>
+                    <div class="metric-change positive" id="valueChange">+0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Avg ESG Score</div>
+                    <div class="metric-value" id="avgESG">0</div>
+                    <div class="metric-change positive" id="esgChange">+0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Active Portfolios</div>
+                    <div class="metric-value" id="activePortfolios">0</div>
+                    <div class="metric-change" id="portfolioChange">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Trading Volume</div>
+                    <div class="metric-value" id="tradingVolume">$0</div>
+                    <div class="metric-change positive" id="volumeChange">+0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Compliance Rate</div>
+                    <div class="metric-value" id="complianceRate">0%</div>
+                    <div class="metric-change positive" id="complianceChange">+0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Borrower Savings</div>
+                    <div class="metric-value" id="borrowerSavings">$0</div>
+                    <div class="metric-change positive" id="savingsChange">+0%</div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Loan Application Trend</h3>
+                    <canvas id="loanTrendChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>ESG Score Distribution</h3>
+                    <canvas id="esgDistributionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Portfolio Performance</h3>
+                    <canvas id="portfolioPerformanceChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Carbon Reduction Impact</h3>
+                    <canvas id="carbonImpactChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loan Origination Tab -->
+        <div class="tab-content" id="origination">
+            <h2 class="section-title">AI-Powered Loan Origination</h2>
+            
+            <div class="form-container">
+                <form id="loanApplicationForm">
+                    <div class="form-section">
+                        <h3>Borrower Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" id="country" name="country" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Country Code</label>
+                                <input type="text" id="countryCode" name="country_code" maxlength="3">
+                            </div>
+                            <div class="form-group">
+                                <label>Year</label>
+                                <input type="number" id="year" name="year" value="2024" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Loan Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Loan Amount ($)</label>
+                                <input type="number" id="loanAmount" name="loan_amount" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Loan Term (Months)</label>
+                                <select id="loanTerm" name="loan_term_months" required>
+                                    <option value="12">12 months</option>
+                                    <option value="24">24 months</option>
+                                    <option value="36">36 months</option>
+                                    <option value="48">48 months</option>
+                                    <option value="60">60 months</option>
+                                    <option value="84">84 months</option>
+                                    <option value="120">120 months</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Project Type</label>
+                                <select id="projectType" name="project_type" required>
+                                    <option value="Solar Installation">Solar Installation</option>
+                                    <option value="Wind Farm">Wind Farm</option>
+                                    <option value="Energy Efficiency Upgrade">Energy Efficiency Upgrade</option>
+                                    <option value="Green Building">Green Building</option>
+                                    <option value="Electric Vehicle Fleet">Electric Vehicle Fleet</option>
+                                    <option value="Waste Management">Waste Management</option>
+                                    <option value="Water Conservation">Water Conservation</option>
+                                    <option value="Sustainable Agriculture">Sustainable Agriculture</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Financial Metrics</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Credit Score</label>
+                                <input type="number" id="creditScore" name="credit_score" min="300" max="850" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Debt-to-Income Ratio</label>
+                                <input type="number" id="dtiRatio" name="debt_to_income_ratio" step="0.01" min="0" max="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Annual Revenue ($)</label>
+                                <input type="number" id="annualRevenue" name="annual_revenue" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Years in Business</label>
+                                <input type="number" id="yearsInBusiness" name="years_in_business" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Existing Debt ($)</label>
+                                <input type="number" id="existingDebt" name="existing_debt" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>ESG Metrics</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Carbon Reduction Target (%)</label>
+                                <input type="number" id="carbonTarget" name="carbon_reduction_target_pct" step="0.1" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Renewable Energy (%)</label>
+                                <input type="number" id="renewableEnergy" name="renewable_energy_pct" step="0.1" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Energy Efficiency Rating</label>
+                                <select id="energyRating" name="energy_efficiency_rating" required>
+                                    <option value="A">A - Excellent</option>
+                                    <option value="B">B - Good</option>
+                                    <option value="C">C - Average</option>
+                                    <option value="D">D - Below Average</option>
+                                    <option value="E">E - Poor</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Environmental Certifications</label>
+                                <input type="number" id="certifications" name="environmental_certifications" min="0" max="10" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Social Impact Score</label>
+                                <input type="number" id="socialScore" name="social_impact_score" step="0.1" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Governance Score</label>
+                                <input type="number" id="governanceScore" name="governance_score" step="0.1" min="0" max="100" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                        <button type="reset" class="btn btn-secondary">Reset Form</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="result-container" id="loanResultContainer" style="display: none;">
+                <h3>Application Result</h3>
+                <div id="loanResult"></div>
+            </div>
+        </div>
+
+        <!-- Document Vault Tab -->
+        <div class="tab-content" id="documents">
+            <h2 class="section-title">Document Vault - OCR Processing</h2>
+            
+            <div class="upload-section">
+                <form id="documentUploadForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Loan ID</label>
+                            <input type="text" id="docLoanId" name="loan_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Document Type</label>
+                            <select id="docType" name="document_type">
+                                <option value="">Auto-detect</option>
+                                <option value="Property Deed">Property Deed</option>
+                                <option value="Energy Certificate">Energy Certificate</option>
+                                <option value="Identity Document">Identity Document</option>
+                                <option value="Financial Statement">Financial Statement</option>
+                                <option value="Business License">Business License</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Document</label>
+                        <input type="file" id="documentFile" name="file" accept=".pdf,.png,.jpg,.jpeg,.tiff" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload and Process</button>
+                </form>
+            </div>
+
+            <div class="documents-list">
+                <h3>Recent Documents</h3>
+                <div class="table-container">
+                    <table id="documentsTable">
+                        <thead>
+                            <tr>
+                                <th>Document ID</th>
+                                <th>Loan ID</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Confidence</th>
+                                <th>Upload Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="documentsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>OCR Confidence Distribution</h3>
+                <canvas id="ocrConfidenceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Trading Floor Tab -->
+        <div class="tab-content" id="trading">
+            <h2 class="section-title">Loan Portfolio Trading Floor</h2>
+            
+            <div class="trading-controls">
+                <button class="btn btn-primary" onclick="showCreatePortfolioModal()">Create Portfolio</button>
+                <button class="btn btn-secondary" onclick="refreshTradingData()">Refresh Data</button>
+            </div>
+
+            <div class="portfolios-grid">
+                <div class="portfolio-section">
+                    <h3>Available Portfolios</h3>
+                    <div id="availablePortfolios"></div>
+                </div>
+                <div class="portfolio-section">
+                    <h3>Recent Trades</h3>
+                    <div id="recentTrades"></div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Trading Volume Trend</h3>
+                    <canvas id="tradingVolumeChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Portfolio Yield Distribution</h3>
+                    <canvas id="portfolioYieldChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Covenant Monitor Tab -->
+        <div class="tab-content" id="monitoring">
+            <h2 class="section-title">Covenant Monitoring Dashboard</h2>
+            
+            <div class="monitoring-controls">
+                <div class="form-group">
+                    <label>Select Loan</label>
+                    <input type="text" id="monitorLoanId" placeholder="Enter Loan ID">
+                </div>
+                <button class="btn btn-primary" onclick="loadMonitoringData()">Load Data</button>
+                <button class="btn btn-secondary" onclick="generateMonitoringData()">Generate Test Data</button>
+            </div>
+
+            <div class="monitoring-status" id="monitoringStatus"></div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Energy Savings Trend</h3>
+                    <canvas id="energySavingsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Carbon Reduction Progress</h3>
+                    <canvas id="carbonReductionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>ESG Score Evolution</h3>
+                    <canvas id="esgScoreChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Compliance Status</h3>
+                    <canvas id="complianceStatusChart"></canvas>
+                </div>
+            </div>
+
+            <div class="alerts-section">
+                <h3>Compliance Alerts</h3>
+                <div id="complianceAlerts"></div>
+            </div>
+        </div>
+
+        <!-- Rate Engine Tab -->
+        <div class="tab-content" id="rates">
+            <h2 class="section-title">Dynamic Interest Rate Engine</h2>
+            
+            <div class="rate-controls">
+                <div class="form-group">
+                    <label>Select Loan</label>
+                    <input type="text" id="rateLoanId" placeholder="Enter Loan ID">
+                </div>
+                <button class="btn btn-primary" onclick="calculateRateAdjustment()">Calculate Adjustment</button>
+                <button class="btn btn-secondary" onclick="loadRateHistory()">Load History</button>
+            </div>
+
+            <div class="rate-result" id="rateResult"></div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Rate Adjustment History</h3>
+                    <canvas id="rateHistoryChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Milestone Tiers Distribution</h3>
+                    <canvas id="milestoneTiersChart"></canvas>
+                </div>
+            </div>
+
+            <div class="savings-summary" id="savingsSummary"></div>
+        </div>
+
+        <!-- Audit Ledger Tab -->
+        <div class="tab-content" id="ledger">
+            <h2 class="section-title">Blockchain Audit Ledger</h2>
+            
+            <div class="ledger-controls">
+                <button class="btn btn-primary" onclick="validateLedger()">Validate Chain</button>
+                <button class="btn btn-secondary" onclick="refreshLedgerData()">Refresh</button>
+            </div>
+
+            <div class="ledger-status" id="ledgerStatus"></div>
+
+            <div class="ledger-table">
+                <h3>Transaction History</h3>
+                <div class="table-container">
+                    <table id="ledgerTable">
+                        <thead>
+                            <tr>
+                                <th>Block #</th>
+                                <th>Timestamp</th>
+                                <th>Type</th>
+                                <th>Transaction ID</th>
+                                <th>Portfolio ID</th>
+                                <th>Amount</th>
+                                <th>Hash</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledgerTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div class="tab-content" id="analytics">
+            <h2 class="section-title">Advanced Analytics & Performance</h2>
+            
+            <div class="analytics-grid">
+                <div class="chart-container full-width">
+                    <h3>System Performance Overview</h3>
+                    <div id="performancePlot"></div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Risk Distribution</h3>
+                    <canvas id="riskDistributionChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Project Type Mix</h3>
+                    <canvas id="projectTypeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Credit Score vs ESG Score</h3>
+                    <div id="scatterPlot"></div>
+                </div>
+                <div class="chart-container">
+                    <h3>Geographical Distribution</h3>
+                    <canvas id="geoDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="createPortfolioModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('createPortfolioModal')">&times;</span>
+            <h2>Create Portfolio</h2>
+            <form id="createPortfolioForm">
+                <div class="form-group">
+                    <label>Seller ID</label>
+                    <input type="text" id="portfolioSellerId" required>
+                </div>
+                <div class="form-group">
+                    <label>Loan IDs (comma-separated)</label>
+                    <textarea id="portfolioLoanIds" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Portfolio</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/loan_origination.js"></script>
+    <script src="js/trading_floor.js"></script>
+    <script src="js/monitoring.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>
